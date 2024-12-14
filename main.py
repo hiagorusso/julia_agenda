@@ -15,9 +15,9 @@ menu = st.sidebar.selectbox("Escolha uma opção", [
     "Excluir Atendimento",
     "Cadastrar Serviço",
     "Listar Serviços",
-    "Consultar Resumo",
     "Deletar Serviço",
-    "Alterar Valor do Serviço"
+    "Alterar Valor do Serviço",
+    "Consultar Resumo",
 ])
 
 
