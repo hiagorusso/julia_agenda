@@ -1,3 +1,5 @@
+import sqlite3
+import streamlit as st
 from db.connection import conectar
 
 def cadastrar_servico(nome, valor):
@@ -43,3 +45,17 @@ def atualizar_valor_servico(servico_id, novo_valor):
     )
     conexao.commit()
     conexao.close()
+
+def deletar_atendimento(atendimento_id):
+    """Exclui um atendimento do banco de dados com base no ID."""
+    conexao = sqlite3.connect("atelier.db")
+    cursor = conexao.cursor()
+    try:
+        cursor.execute("DELETE FROM atendimentos WHERE id = ?", (atendimento_id,))
+        conexao.commit()
+        st.success(f"Atendimento com ID {atendimento_id} foi excluído com sucesso.")
+    except sqlite3.Error as e:
+        st.error(f"Erro ao excluir atendimento: {e}")
+    finally:
+        conexao.close()
+

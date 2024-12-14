@@ -1,6 +1,7 @@
 import streamlit as st
+import sqlite3
 from db.connection import criar_tabelas
-from db.servicos import cadastrar_servico, listar_servicos, deletar_servico
+from db.servicos import cadastrar_servico, listar_servicos, deletar_servico, deletar_atendimento
 from db.atendimentos import adicionar_atendimento
 from db.servicos import atualizar_valor_servico
 from services.resumo import consultar_resumo
@@ -11,6 +12,7 @@ criar_tabelas()
 
 menu = st.sidebar.selectbox("Escolha uma opção", [
     "Registrar Atendimento",
+    "Excluir Atendimento",
     "Cadastrar Serviço",
     "Listar Serviços",
     "Consultar Resumo",
@@ -108,3 +110,26 @@ elif menu == "Alterar Valor do Serviço":
     else:
         st.info("Nenhum serviço cadastrado.")
 
+elif menu == "Excluir Atendimento":
+    st.header("Excluir Atendimento")
+    conexao = sqlite3.connect("atelier.db")
+    cursor = conexao.cursor()
+    cursor.execute("""
+        SELECT a.id, s.nome, a.data
+        FROM atendimentos a
+        JOIN servicos s ON a.servico_id = s.id
+    """)
+    atendimentos = cursor.fetchall()
+    conexao.close()
+
+    if atendimentos:
+        atendimento_selecionado = st.selectbox(
+            "Selecione o Atendimento para excluir",
+            options=atendimentos,
+            format_func=lambda x: f"ID: {x[0]} | Serviço: {x[1]} | Data: {x[2]}"
+        )
+
+        if st.button("Excluir Atendimento"):
+            deletar_atendimento(atendimento_selecionado[0])
+    else:
+        st.info("Nenhum atendimento registrado para excluir.")
