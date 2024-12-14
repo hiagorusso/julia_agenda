@@ -10,9 +10,9 @@ st.title("Gerenciamento de Atendimentos do Ateliê")
 criar_tabelas()
 
 menu = st.sidebar.selectbox("Escolha uma opção", [
+    "Registrar Atendimento",
     "Cadastrar Serviço",
     "Listar Serviços",
-    "Registrar Atendimento",
     "Consultar Resumo",
     "Deletar Serviço",
     "Alterar Valor do Serviço"
