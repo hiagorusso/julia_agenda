@@ -11,7 +11,7 @@ from services.export import gerar_resumo_pdf, gerar_resumo_excel
 st.title("Gerenciamento de Atendimentos do Ateliê")
 criar_tabelas()
 
-menu = st.sidebar.selectbox("Escolha uma opção", [
+menu = st.sidebar.selectbox("Escolha uma das opção", [
     "Registrar Atendimento",
     "Excluir Atendimento",
     "Cadastrar Serviço",
