@@ -99,19 +99,12 @@ elif menu == "Registrar Atendimento":
 #         st.warning("Nenhum serviço disponível para registro.")
 #
 
+
 elif menu == "Consultar Resumo":
     st.header("Consultar Resumo Mensal")
 
-    # Obter o mês atual
-    mes_atual = datetime.now().month
-
     # Seleção do mês e ano
-    mes = st.selectbox(
-        "Mês",
-        options=list(range(1, 13)),
-        format_func=lambda x: f"{x:02}",
-        index=mes_atual - 1  # Define o mês atual como padrão
-    )
+    mes = st.selectbox("Mês", options=list(range(1, 13)), format_func=lambda x: f"{x:02}")
     ano = st.number_input("Ano", min_value=2000, max_value=2100, value=datetime.now().year)
 
     if st.button("Consultar"):
@@ -156,6 +149,21 @@ elif menu == "Consultar Resumo":
         except Exception as e:
             st.error(f"Erro ao consultar resumo: {e}")
 
+
+# elif menu == "Consultar Resumo":
+#     st.header("Consultar Resumo Mensal")
+#     mes = st.selectbox("Mês", options=list(range(1, 13)), format_func=lambda x: f"{x:02}")
+#     ano = st.number_input("Ano", min_value=2000, max_value=2100, value=datetime.now().year)
+#     if st.button("Consultar"):
+#         atendimentos, total = consultar_resumo(mes, ano)
+#         total_liquido = total * 0.7
+#         if atendimentos:
+#             for servico, quantidade, total_servico in atendimentos:
+#                 st.write(f"Serviço: {servico} | Quantidade: {quantidade} | Total: R${total_servico:.2f}")
+#             st.write(f"**Valor total do mês:** R${total:.2f}")
+#             st.write(f"**Valor líquido (após 30%):** R${total_liquido:.2f}")
+#         else:
+#             st.info("Nenhum atendimento encontrado para o período selecionado.")
 
 elif menu == "Deletar Serviço":
     st.header("Deletar Serviço")
