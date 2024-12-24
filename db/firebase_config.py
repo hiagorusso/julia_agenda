@@ -1,5 +1,4 @@
 import firebase_admin
-import os
 import streamlit as st
 from firebase_admin import credentials, firestore
 
@@ -22,23 +21,27 @@ from firebase_admin import credentials, firestore
 
 
 def iniciar_firestore():
-    """Inicializa a conexão com o Firestore usando as credenciais do Streamlit Secrets."""
+    """Inicializa o Firestore com credenciais fornecidas diretamente."""
     try:
+        # Verifica se o Firebase já está inicializado
         if not firebase_admin._apps:
-            # Carregar as credenciais do Streamlit Secrets
-            firebase_credentials = st.secrets["firebase"]
+            # Carregar credenciais diretamente do Streamlit Secrets
+            firebase_credentials = dict(st.secrets["firebase"])  # Certifique-se de que é um dicionário válido
 
-            # Inicializar o Firebase com as credenciais
+            # Inicializar o Firebase Admin SDK com credenciais explícitas
             cred = credentials.Certificate(firebase_credentials)
             firebase_admin.initialize_app(cred)
 
         return firestore.client()
     except Exception as e:
-        st.error(f"Erro ao inicializar o Firebase: {e}")
+        st.error(f"Erro ao inicializar o Firestore: {e}")
         raise
 
 
-# Testar a conexão
+# Testar a conexão com o Firestore
 if __name__ == "__main__":
-    db = iniciar_firestore()
-    st.write("Firestore inicializado com sucesso!")
+    try:
+        db = iniciar_firestore()
+        st.success("Firestore inicializado com sucesso!")
+    except Exception as e:
+        st.error(f"Erro ao conectar com o Firestore: {e}")
