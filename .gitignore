@@ -1,0 +1,9 @@
+# Arquivos sensíveis
+db/serviceAccountKey.json
+*.pyc
+__pycache__/
+.secrets.toml
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
