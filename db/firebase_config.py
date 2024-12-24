@@ -2,7 +2,6 @@ import firebase_admin
 import os
 import streamlit as st
 from firebase_admin import credentials, firestore
-from dotenv import load_dotenv
 
 # #funcio certinho com local
 # caminho_credenciais = "C:/Users/HiagoRusso/PycharmProjects/AppAtelie/db/serviceAccountKey.json"
